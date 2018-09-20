@@ -21,6 +21,9 @@ bool isNumber(char * str) {
 1: L -- The side length of the base square
 2: N -- The recursion depth
 */
+
+typedef enum animation {NONE, ROTATE, WAVE} Animation;
+
 int main(int argc, char ** argv) {
 
   // Validate count and type of args
@@ -36,9 +39,14 @@ int main(int argc, char ** argv) {
   double windowWidth = RATIO_WINDOW_WIDTH_TO_SQUARE * baseSquareSideLength ;
   double windowHeight = RATIO_WINDOW_HEIGHT_TO_SQUARE * baseSquareSideLength ;
 
+
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML-ps1") ;
 
+  window.setFramerateLimit(60) ;
+
   js::PTree pTree(recursionDepth, baseSquareSideLength, windowWidth, windowHeight) ;
+
+  Animation currentAnimation = NONE ;
 
   while(window.isOpen()) {
     sf::Event capturedEvent ;
@@ -47,7 +55,27 @@ int main(int argc, char ** argv) {
       if (capturedEvent.type == sf::Event::Closed) {
         window.close() ;
       }
+      if (capturedEvent.type == sf::Event::KeyPressed) {
+        switch(capturedEvent.key.code) {
+          case sf::Keyboard::Q:
+            window.close() ;
+            break ;
+          case sf::Keyboard::Left:
+            pTree.shiftLeft() ;
+            break ;
+          case sf::Keyboard::Right:
+            pTree.shiftRight() ;
+            break ;
+          case sf::Keyboard::A:
+            currentAnimation = ROTATE ;
+            break ;
+          default:
+          break ;
+        }
+      }
     }
+
+    switch()
 
     window.clear() ;
     window.draw(pTree) ;
