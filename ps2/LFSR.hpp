@@ -1,0 +1,36 @@
+#ifndef LFSR_HPP
+#define LFSR_HPP "LFSR.hpp"
+
+#include <string>
+
+namespace jsavitz {
+
+class LFSR {
+
+public:
+    // Constructor that creates the object based on a binary string and integer tap value
+    LFSR(std::string seed, int tap) ;
+
+    // Simulate a single step. Returns the new bit (either 0 or 1)
+    int step() ;
+
+    // Simulate k steps. Returns a k-bit integer
+    int generate(int k) ;
+
+private:
+
+    // Private storage of the tap value. Must be positive
+    unsigned int _tap ;
+
+    // The current characters stored in the register
+    std::string _state ;
+
+    // The size of the register
+    std::string::size_type _length ;
+
+
+} ; // class LFSR
+
+} // namespace jsavitz
+
+#endif // LFSR_HPP
