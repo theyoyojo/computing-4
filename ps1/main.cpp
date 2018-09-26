@@ -24,6 +24,8 @@ bool isNumber(char * str) {
 
 typedef enum animation {NONE, ROTATE, WAVE} Animation;
 
+extern const int js::FPS = 60 ;
+
 int main(int argc, char ** argv) {
 
   // Validate count and type of args
@@ -42,7 +44,7 @@ int main(int argc, char ** argv) {
 
   sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "SFML-ps1") ;
 
-  window.setFramerateLimit(60) ;
+  window.setFramerateLimit(js::FPS) ;
 
   js::PTree pTree(recursionDepth, baseSquareSideLength, windowWidth, windowHeight) ;
 
@@ -69,13 +71,29 @@ int main(int argc, char ** argv) {
           case sf::Keyboard::A:
             currentAnimation = ROTATE ;
             break ;
+          case sf::Keyboard::B:
+            currentAnimation = WAVE ;
+            break ;
+          case sf::Keyboard::Space:
+            currentAnimation = NONE ;
+            break ;
           default:
           break ;
         }
       }
     }
 
-    switch()
+    switch(currentAnimation) {
+      case ROTATE:
+        pTree.updateRotateAnimation() ;
+        break ;
+      case WAVE:
+        pTree.updateWaveAnimation() ;
+        break ;
+      case NONE:
+      default:
+        break ;
+    }
 
     window.clear() ;
     window.draw(pTree) ;

@@ -5,6 +5,8 @@
 
 namespace js {
 
+extern const int FPS ;
+
 // Small helper class used to easily draw squares
 class Square : public sf::ConvexShape {
 public:
@@ -52,7 +54,9 @@ public:
 
   void shift(double deltaTheta) ;
 
-  void rotate() ;
+  void updateRotateAnimation() ;
+
+  void updateWaveAnimation() ;
 
 } ; // class PTree
 
