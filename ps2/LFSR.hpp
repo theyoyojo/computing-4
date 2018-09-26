@@ -19,6 +19,9 @@ public:
 
 private:
 
+    // Simulate left bitshift operation on object's state
+    void shiftLeft() ;
+
     // Private storage of the tap value. Must be positive
     unsigned int _tap ;
 

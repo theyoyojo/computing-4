@@ -1,8 +1,8 @@
 CPPC = g++
-CPPFLAGS = -g -ansi -Wall -Werror -pedantic
+CPPFLAGS = -g -ansi -Wall -Werror -pedantic --std=c++11
 LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
-OBJECTS = main.o
+OBJECTS = main.o LFSR.o
 
 BIN = app
 
