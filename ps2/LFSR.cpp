@@ -2,6 +2,7 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
+#include <ostream>
 
 using namespace jsavitz ;
 
@@ -26,8 +27,9 @@ int binaryCharVectorToInteger(const std::vector<char>& binaryCharVector ) {
 
 void LFSR::shiftLeft() {
     // Swap every character with the proceeding one from the back to the front
-    for(auto i = _length - 1; i > 0; --i) {
-        std::swap(_state[i],_state[i - 1]) ;
+    for(auto i = 0; i < (int)(_length - 1); ++i) {
+        std::swap(_state[i],_state[i + 1]) ;
+        //std::cout << _state << std::endl ;
     }
 
     // Finally, set the last character in the string (least significant bit) to 0
@@ -41,6 +43,9 @@ LFSR::LFSR(std::string seed, int tap) {
         if (bit != '0' && bit != '1') throw "Invalid seed string!" ;
     }
 
+    // A seed string must not be more than 32 bits in length, per specification
+    if (seed.length() > 32) throw "Seed string too long!" ;
+
     // Validate that tap is non-negative and less than the seed length
     if (tap < 0 || tap >= (int)seed.length()) throw "Tap value out of bounds!" ;
 
@@ -51,11 +56,13 @@ LFSR::LFSR(std::string seed, int tap) {
 }
 
 int LFSR::step() {
-    char tempBit = XOR (_state[0], _state[_length - _tap]) ;
+    char tempBit = XOR (_state[0], _state[_length - _tap - 1]) ;
 
     shiftLeft() ;
 
     _state[_length - 1] = tempBit ;
+    //std::cout << _state << std::endl ;
+    //std::cout << "-----" << std::endl ;
 
     return tempBit == '0' ? 0 : 1 ;
 }
@@ -76,4 +83,12 @@ int LFSR::generate(int iterations) {
     */
 
     return binaryCharVectorToInteger(generatedBitsAsChars) ;
+}
+
+std::ostream& LFSR::write(std::ostream& target) const {
+    return target << _state ;
+}
+
+std::ostream& operator<<(std::ostream& target, const LFSR& rvalue) {
+    return rvalue.write(target) ;
 }

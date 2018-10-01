@@ -17,6 +17,8 @@ public:
     // Simulate k steps. Returns a k-bit integer
     int generate(int k) ;
 
+    std::ostream& write(std::ostream& target) const ;
+
 private:
 
     // Simulate left bitshift operation on object's state
