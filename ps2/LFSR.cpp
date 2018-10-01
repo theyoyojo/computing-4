@@ -2,7 +2,6 @@
 #include <vector>
 #include <math.h>
 #include <iostream>
-#include <ostream>
 
 using namespace jsavitz ;
 
@@ -86,9 +85,5 @@ int LFSR::generate(int iterations) {
 }
 
 std::ostream& LFSR::write(std::ostream& target) const {
-    return target << _state ;
-}
-
-std::ostream& operator<<(std::ostream& target, const LFSR& rvalue) {
-    return rvalue.write(target) ;
+   return target << _state ;
 }

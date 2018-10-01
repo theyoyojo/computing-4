@@ -33,8 +33,12 @@ private:
     // The size of the register
     std::string::size_type _length ;
 
+friend std::ostream& operator<<(std::ostream& target, const LFSR& rvalue) {
+    return rvalue.write(target) ;
+}
 
 } ; // class LFSR
+
 
 } // namespace jsavitz
 
