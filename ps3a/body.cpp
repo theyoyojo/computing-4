@@ -4,6 +4,21 @@
 
 using namespace jsavitz ;
 
+double Body::universeSize = 0 ;
+
+int Body::windowWidth = 0 ;
+
+int Body::windowHeight = 0 ;
+
+sf::Vector2f getDisplayCoordinates(sf::Vector2f cartesianCoordinates) {
+  sf::Vector2f displayCoordinates ;
+
+  displayCoordinates.x = Body::windowWidth * ( (Body::windowWidth/2 + cartesianCoordinates.x) / Body::universeSize ) ;
+  displayCoordinates.y = -1 * Body::windowHeight * ( (Body::windowHeight/2 + cartesianCoordinates.y) / Body::universeSize ) ;
+
+  return displayCoordinates ;
+}
+
 Body::Body(double xPosition, double yPosition, double xVelocity, double yVelocity, double mass, std::string spriteFilename) :
 _xPosition(xPosition), _yPosition(yPosition), _xVelocity(xVelocity), _yVelocity(yVelocity), _mass(mass), _spriteFilename(spriteFilename)
 {
@@ -11,6 +26,7 @@ _xPosition(xPosition), _yPosition(yPosition), _xVelocity(xVelocity), _yVelocity(
 
   _texture.loadFromImage(_image) ;
   _sprite.setTexture(_texture) ;
+  _sprite.setPosition(getDisplayCoordinates(sf::Vector2f(_xPosition,_yPosition))) ;
 }
 
 Body::Body() {
@@ -18,19 +34,21 @@ Body::Body() {
   if (!_image.loadFromFile(_spriteFilename)) throw std::runtime_error("Body sprite image not found!") ;
   _texture.loadFromImage(_image) ;
   _sprite.setTexture(_texture) ;
+  _sprite.setPosition(getDisplayCoordinates(sf::Vector2f(_xPosition,_yPosition))) ;
 }
 
 void Body::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-
+  target.draw(_sprite) ;
 }
 
-std::istream& jsavitz::operator >>(std::istream& istream, Body& body) {
-  istream >> body._xPosition ;
-  istream >> body._yPosition ;
-  istream >> body._xVelocity;
-  istream >> body._yVelocity;
-  istream >> body._mass ;
-  istream >> body._spriteFilename ;
+void Body::printProperties() {
 
-  return istream ;
+  std::cout << _xPosition << "\t" ;
+  std::cout << _yPosition << "\t" ;
+  std::cout << _xVelocity << "\t" ;
+  std::cout << _yVelocity << "\t" ;
+  std::cout << _mass << "\t" ;
+  std::cout << _spriteFilename ;
+
+  std::cout << std::endl ;
 }

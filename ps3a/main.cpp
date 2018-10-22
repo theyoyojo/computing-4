@@ -14,11 +14,18 @@ int main() {
   std::cin >>  numberBodies ;
   std::cin >> jsavitz::Body::universeSize ;
 
+  jsavitz::Body::windowWidth  = WIDTH ;
+  jsavitz::Body::windowHeight = HEIGHT ;
+
   std::vector<std::shared_ptr<jsavitz::Body>> bodies ;
 
 
   for (int i = 0; i < numberBodies; i++) {
     bodies.push_back(std::make_shared<jsavitz::Body>()) ;
+  }
+
+  for ( auto body : bodies) {
+    body->printProperties() ;
   }
 
   sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT),"SFML-demo") ;
@@ -31,9 +38,10 @@ int main() {
     if (e.type == sf::Event::Closed) {
       window.close() ;
     }
+
+    window.clear() ;
+    for(auto body : bodies) window.draw(*body) ;
+    window.display() ;
   }
 
-  window.clear() ;
-  //window.draw() ;
-  window.display() ;
 }

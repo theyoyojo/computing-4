@@ -5,40 +5,55 @@
 
 namespace jsavitz {
 
-class Body : sf::Drawable {
+class Body : public sf::Drawable {
 
 private:
 
-double _xPosition ;
+  double _xPosition ;
 
-double _yPosition ;
+  double _yPosition ;
 
-double _xVelocity ;
+  double _xVelocity ;
 
-double _yVelocity ;
+  double _yVelocity ;
 
-double _mass ;
+  double _mass ;
 
-std::string _spriteFilename ;
+  std::string _spriteFilename ;
 
-sf::Sprite _sprite ;
+  sf::Sprite _sprite ;
 
-sf::Texture _texture ;
+  sf::Texture _texture ;
 
-sf::Image _image ;
+  sf::Image _image ;
 
 public:
 
-static double universeSize ;
+  static double universeSize ;
+  static int windowWidth ;
+  static int windowHeight ;
 
-Body(double xPosition, double yPosition, double xVelocity, double yVelocity, double mass, std::string spriteFilename) ;
+  Body(double xPosition, double yPosition, double xVelocity, double yVelocity, double mass, std::string spriteFilename) ;
 
-Body() ;
+  Body() ;
 
-void draw(sf::RenderTarget& target, sf::RenderStates states) const ;
+  void printProperties() ;
 
-friend std::istream& operator >>(std::istream& istream, Body& obj) ;
+  void draw(sf::RenderTarget& target, sf::RenderStates states) const ;
 
+  friend std::istream& operator >>(std::istream& istream, Body& body) {
+
+    istream >> body._xPosition ;
+    istream >> body._yPosition ;
+    istream >> body._xVelocity;
+    istream >> body._yVelocity;
+    istream >> body._mass ;
+    istream >> body._spriteFilename ;
+
+    return istream ;
+  }
+
+  
 } ; // class Body
 
 } // namespace jsavitz
