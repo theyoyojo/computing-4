@@ -1,0 +1,19 @@
+CPPC = g++
+CPPFLAGS = -g -ansi -Wall -Werror -pedantic --std=c++11
+LIBS = -lsfml-graphics -lsfml-window -lsfml-system
+
+OBJECTS = main.o body.o
+
+BIN = app
+
+all: $(BIN)
+	@echo Make complete.
+	
+$(BIN): $(OBJECTS)
+	$(CPPC) $(CPPFLAGS) $(OBJECTS) -o $(BIN) $(LIBS)
+
+%.o: %.cpp
+	$(CPPC) $(CPPFLAGS) -c $^
+
+clean:
+	rm $(BIN) $(OBJECTS)
