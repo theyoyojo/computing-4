@@ -4,7 +4,7 @@ LIBS = -lsfml-graphics -lsfml-window -lsfml-system
 
 OBJECTS = main.o body.o
 
-BIN = app
+BIN = NBody
 
 all: $(BIN)
 	@echo Make complete.

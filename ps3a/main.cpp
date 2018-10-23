@@ -4,8 +4,8 @@
 #include <memory>
 #include "body.hpp"
 
-const int WIDTH = 200 ;
-const int HEIGHT = 200 ;
+const int WIDTH = 400 ;
+const int HEIGHT = 400 ;
 
 int main() {
 

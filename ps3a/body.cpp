@@ -13,8 +13,8 @@ int Body::windowHeight = 0 ;
 sf::Vector2f getDisplayCoordinates(sf::Vector2f cartesianCoordinates) {
   sf::Vector2f displayCoordinates ;
 
-  displayCoordinates.x = Body::windowWidth * ( (Body::windowWidth/2 + cartesianCoordinates.x) / Body::universeSize ) ;
-  displayCoordinates.y = -1 * Body::windowHeight * ( (Body::windowHeight/2 + cartesianCoordinates.y) / Body::universeSize ) ;
+  displayCoordinates.x = Body::windowWidth/2 + Body::windowWidth/2 * ( (cartesianCoordinates.x) / Body::universeSize ) ;
+  displayCoordinates.y = (Body::windowHeight/2 + Body::windowHeight/2 * ( (cartesianCoordinates.y) / Body::universeSize ) ) ;
 
   return displayCoordinates ;
 }
@@ -27,6 +27,7 @@ _xPosition(xPosition), _yPosition(yPosition), _xVelocity(xVelocity), _yVelocity(
   _texture.loadFromImage(_image) ;
   _sprite.setTexture(_texture) ;
   _sprite.setPosition(getDisplayCoordinates(sf::Vector2f(_xPosition,_yPosition))) ;
+
 }
 
 Body::Body() {
@@ -35,6 +36,7 @@ Body::Body() {
   _texture.loadFromImage(_image) ;
   _sprite.setTexture(_texture) ;
   _sprite.setPosition(getDisplayCoordinates(sf::Vector2f(_xPosition,_yPosition))) ;
+  std::cout << "Position set to" << _sprite.getPosition().x << "," << _sprite.getPosition().y << std::endl ;
 }
 
 void Body::draw(sf::RenderTarget& target, sf::RenderStates states) const {
