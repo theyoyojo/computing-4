@@ -4,8 +4,8 @@
 #include <memory>
 #include "body.hpp"
 
-const int WIDTH = 400 ;
-const int HEIGHT = 400 ;
+const int WIDTH = 1000 ;
+const int HEIGHT = 1000 ;
 
 int main() {
 
@@ -24,9 +24,11 @@ int main() {
     bodies.push_back(std::make_shared<jsavitz::Body>()) ;
   }
 
+  /* Debug output
   for ( auto body : bodies) {
     body->printProperties() ;
   }
+  */
 
   sf::RenderWindow window(sf::VideoMode(WIDTH,HEIGHT),"SFML-demo") ;
 
