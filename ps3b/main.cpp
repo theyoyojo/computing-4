@@ -48,10 +48,10 @@ void simulatePhysics(std::vector<std::shared_ptr<jsavitz::Body >>& bodies, doubl
     // Update stored velocity
     body->setVelocity(newVelocity) ;
 
-    // Internally update position
-    body->step(timeIncrement) ;
 
   }
+    // Internally update position after new velocities have been calculated 
+    for (auto body : bodies) body->step(timeIncrement) ;
 }
 
 int main(int argc, char ** argv) {
@@ -90,6 +90,13 @@ int main(int argc, char ** argv) {
 
   sf::Event e ;
 
+  sf::Font arial ;
+  arial.loadFromFile("arial.ttf") ;
+  sf::Text elapsedTime("",arial) ;
+  elapsedTime.setPosition((0.10) * WIDTH, HEIGHT - (0.10) * HEIGHT) ;
+  elapsedTime.setFillColor(sf::Color::White) ;
+  std::string timeString ;
+ 
   bool justFinished = true ;
     
   while (window.isOpen()) {
@@ -101,9 +108,9 @@ int main(int argc, char ** argv) {
 
     if (currentTime < simulationTime) {
       simulatePhysics(bodies, timeIncrement) ;
-      std::cout << "ran sim" << std::endl ;
+      //std::cout << "ran sim" << std::endl ;
       currentTime += timeIncrement ;
-      std::cout << "TIME: " << currentTime << " of " << simulationTime << std::endl ;
+      //std::cout << "TIME: " << currentTime << " of " << simulationTime << std::endl ;
     }
     else if (justFinished){
       std::cout << numberBodies << std::endl ;
@@ -120,6 +127,13 @@ int main(int argc, char ** argv) {
     window.clear() ;
     // Draw planets
     for(auto body : bodies) window.draw(*body) ;
+    // Update and draw elapsed time_increment
+    elapsedTime.setString([&]() -> std::string {
+      char floatBuff[32];
+      snprintf(floatBuff, 32, "%g\t of %g", currentTime, simulationTime) ;
+      timeString = "Elapsed Time: " + std::string(floatBuff) ; return timeString ;
+    }()) ;
+    window.draw(elapsedTime) ;
     window.display() ;
   }
 
