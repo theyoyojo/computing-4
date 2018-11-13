@@ -19,7 +19,7 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 	// Acquire runway(s)
 	{  // Begin critical region
 
-		unique_lock<mutex> runwaysLock(runwaysMutex);
+		//unique_lock<mutex> runwaysLock(runwaysMutex);
 
 		{
 			lock_guard<mutex> lk(AirportRunways::checkMutex);
@@ -32,40 +32,22 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 		 *  ***** Add your synchronization here! *****
 		 */
 
-		unique_lock<mutex> ul4L(mutex4L) ;
-		unique_lock<mutex> ul4R(mutex4L) ;
-		unique_lock<mutex> ul9(mutex4L) ;
-		unique_lock<mutex> ul14(mutex4L) ;
-		unique_lock<mutex> ul15L(mutex4L) ;
-		unique_lock<mutex> ul15R(mutex4L) ;
-
 		switch(runway) {
 			case AirportRunways::RUNWAY_4L:
-				
-				while (!open15L) {
-					cv15L.wait(ul15R) ;
-				}
-				open15L = false ;
-				while (!open15R) {
-					cv15R.wait(ul15R) ;
-				}
-				open15R = false ;
-				while (!open4L) {
-					cv4L.wait(ul4L) ;
-				}
-				open4L = false ;
-				break ;
-			case AirportRunways::RUNWAY_4R:
+				mutex4L.lock() ;
 				mutex15L.lock() ;
 				mutex15R.lock() ;
-				mutex9.lock() ;
+				break ;
+			case AirportRunways::RUNWAY_4R:
 				mutex4R.lock() ;
-				while(!)
+				mutex9.lock() ;
+				mutex15L.lock() ;
+				mutex15R.lock() ;
 				break ;
 			case AirportRunways::RUNWAY_9:
 				mutex4R.lock() ;
-				mutex15R.lock() ;
 				mutex9.lock() ;
+				mutex15R.lock() ;
 				break ;
 			case AirportRunways::RUNWAY_14:
 				mutex14.lock() ;
@@ -87,7 +69,7 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 		// Check status of the airport for any rule violations
 		AirportRunways::checkAirportStatus(runway);
 
-		runwaysLock.unlock();
+		//runwaysLock.unlock();
 
 	} // End critical region
 
@@ -119,7 +101,7 @@ void AirportServer::releaseRunway(int airplaneNum, AirportRunways::RunwayNumber 
 	// Release the landing runway and any other needed runways
 	{ // Begin critical region
 
-		unique_lock<mutex> runwaysLock(runwaysMutex);
+		//unique_lock<mutex> runwaysLock(runwaysMutex);
 
 		{
 			lock_guard<mutex> lk(AirportRunways::checkMutex);
@@ -134,20 +116,20 @@ void AirportServer::releaseRunway(int airplaneNum, AirportRunways::RunwayNumber 
 
 		switch(runway) {
 			case AirportRunways::RUNWAY_4L:
+				mutex4L.unlock() ;
 				mutex15L.unlock() ;
 				mutex15R.unlock() ;
-				mutex4L.unlock() ;
 				break ;
 			case AirportRunways::RUNWAY_4R:
+				mutex4R.unlock() ;
+				mutex9.unlock() ;
 				mutex15L.unlock() ;
 				mutex15R.unlock() ;
-				mutex9.unlock() ;
-				mutex4R.unlock() ;
 				break ;
 			case AirportRunways::RUNWAY_9:
 				mutex4R.unlock() ;
-				mutex15R.unlock() ;
 				mutex9.unlock() ;
+				mutex15R.unlock() ;
 				break ;
 			case AirportRunways::RUNWAY_14:
 				mutex14.unlock() ;
@@ -167,7 +149,7 @@ void AirportServer::releaseRunway(int airplaneNum, AirportRunways::RunwayNumber 
 		// Update the status of the airport to indicate that the landing is complete
 		AirportRunways::finishedWithRunway(runway);
 
-		runwaysLock.unlock();
+		//runwaysLock.unlock();
 
 	} // End critical region
 
