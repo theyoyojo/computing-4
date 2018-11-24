@@ -54,10 +54,6 @@ private:
 	 *  ***** Add declarations of your own Locks and Condition Variables here *****
 	 */
 
-	condition_variable cv4L, cv4R, cv9, cv14, cv15L, cv15R ;
-
-	bool open4L, open4R, open9, open14, open15L, open15R ;
-
 	static mutex mutex4L, mutex4R, mutex9, mutex14, mutex15L, mutex15R ;
 
 }; // end class AirportServer

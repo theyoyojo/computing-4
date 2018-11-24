@@ -1,9 +1,9 @@
 CC = g++
-CFLAGS = -c -g -Og -std=c++11
+CFLAGS = -c -Og -g -std=c++11
 OBJ = Airplane.o Airport.o AirportRunways.o AirportServer.o
 DEPS = 
 LIBS = -pthread
-EXE = Airport-NoSync
+EXE = Airport-Sync
 
 all: $(OBJ)
 	$(CC) $(OBJ) -o $(EXE) $(LIBS)
