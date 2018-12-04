@@ -21,12 +21,7 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 
 		//unique_lock<mutex> runwaysLock(runwaysMutex);
 
-		{
-			lock_guard<mutex> lk(AirportRunways::checkMutex);
-
-			cout << "Airplane #" << airplaneNum << " is acquiring any needed runway(s) for landing on Runway "
-				 << AirportRunways::runwayName(runway) << endl;
-		}
+		//runwaysMutex.lock() ;
 
 		/**
 		 *  ***** Add your synchronization here! *****
@@ -64,7 +59,7 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 				mutex15R.lock() ;
 				break ;
 		}
-		cout << "TEST2" << endl ;
+		//cout << "TEST2" << endl ;
 
 		// Check status of the airport for any rule violations
 		AirportRunways::checkAirportStatus(runway);
@@ -114,6 +109,9 @@ void AirportServer::releaseRunway(int airplaneNum, AirportRunways::RunwayNumber 
 		*  ***** Add your synchronization here! *****
 		*/
 
+		// Update the status of the airport to indicate that the landing is complete
+		AirportRunways::finishedWithRunway(runway);
+
 		switch(runway) {
 			case AirportRunways::RUNWAY_4L:
 				mutex4L.unlock() ;
@@ -146,10 +144,9 @@ void AirportServer::releaseRunway(int airplaneNum, AirportRunways::RunwayNumber 
 				mutex15R.unlock() ;
 				break ;
 		}
-		// Update the status of the airport to indicate that the landing is complete
-		AirportRunways::finishedWithRunway(runway);
 
 		//runwaysLock.unlock();
+		//runwaysMutex.unlock() ;
 
 	} // End critical region
 
