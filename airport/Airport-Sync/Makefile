@@ -3,7 +3,7 @@ CFLAGS = -c -g -Og -std=c++11
 OBJ = Airplane.o Airport.o AirportRunways.o AirportServer.o
 DEPS = 
 LIBS = -pthread
-EXE = Airport-NoSync
+EXE = Airport-Sync
 
 all: $(OBJ)
 	$(CC) $(OBJ) -o $(EXE) $(LIBS)
