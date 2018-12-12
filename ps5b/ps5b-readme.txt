@@ -55,3 +55,5 @@ None.
  **********************************************************************/
 I really enjoyed this.
 
+Also, I set the base middle A frequency to 432 Hz instead of 440.
+The user may notice a slight difference in the audio.

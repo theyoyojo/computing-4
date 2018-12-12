@@ -24,7 +24,7 @@
 #include "RingBuffer.hpp"
 #include "GuitarString.hpp"
 
-#define STANDARD_A 432
+#define STANDARD_A 432 // Hz
 #define SAMPLES_PER_SEC 44100
 
 const std::string pianoMap = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' " ;
