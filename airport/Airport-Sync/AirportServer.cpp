@@ -11,6 +11,9 @@ mutex AirportServer::mutex14 ;
 mutex AirportServer::mutex15L ;
 mutex AirportServer::mutex15R ; 
 
+mutex AirportServer::mutexLandingRequests ;
+condition_variable AirportServer::cvLandingRequests ;
+
 /**
 *  Called by an Airplane when it wishes to land on a runway
 */
@@ -26,6 +29,15 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 		/**
 		 *  ***** Add your synchronization here! *****
 		 */
+
+		AirportRunways::incNumLandingRequests() ;
+
+		unique_lock<mutex> landingRequestLock(mutexLandingRequests) ;
+
+		while(AirportRunways::getNumLandingRequests() >= AirportRunways::MAX_LANDING_REQUESTS) {
+			cvLandingRequests.wait(landingRequestLock) ;
+		}
+
 
 		switch(runway) {
 			case AirportRunways::RUNWAY_4L:
@@ -68,6 +80,8 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 
 	} // End critical region
 
+	AirportRunways::decNumLandingRequests() ;
+
 	// obtain a seed from the system clock:
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	std::default_random_engine generator(seed);
@@ -82,6 +96,7 @@ void AirportServer::reserveRunway(int airplaneNum, AirportRunways::RunwayNumber 
 		cout << "Airplane #" << airplaneNum << " is taxiing on Runway " << AirportRunways::runwayName(runway)
 			 << " for " << taxiTime << " milliseconds\n";
 	}
+
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(taxiTime));
 

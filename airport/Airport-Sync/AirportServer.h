@@ -56,6 +56,9 @@ private:
 
 	static mutex mutex4L, mutex4R, mutex9, mutex14, mutex15L, mutex15R ;
 
+	static mutex mutexLandingRequests ;
+	static condition_variable cvLandingRequests ;
+
 }; // end class AirportServer
 
 #endif
