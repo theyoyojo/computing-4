@@ -1,0 +1,33 @@
+\contentsline {section}{\numberline {1}Introduction}{4}
+\contentsline {section}{\numberline {2}PS0: Hello World with SFML}{5}
+\contentsline {subsection}{\numberline {2.1}\texttt {Makefile}}{5}
+\contentsline {subsection}{\numberline {2.2}\texttt {main.cpp}}{6}
+\contentsline {section}{\numberline {3}PS1: Recursive Graphics (Pythagoras Tree)}{11}
+\contentsline {subsection}{\numberline {3.1}\texttt {Makefile}}{12}
+\contentsline {subsection}{\numberline {3.2}\texttt {main.cpp}}{12}
+\contentsline {subsection}{\numberline {3.3}\texttt {PTree.hpp}}{15}
+\contentsline {subsection}{\numberline {3.4}\texttt {PTree.cpp}}{17}
+\contentsline {section}{\numberline {4}PS2: Linear Feedback Shift Register and Image Encoding}{21}
+\contentsline {subsection}{\numberline {4.1}\texttt {Makefile}}{22}
+\contentsline {subsection}{\numberline {4.2}\texttt {PhotoMagic.cpp}}{22}
+\contentsline {subsection}{\numberline {4.3}\texttt {LFSR.hpp}}{25}
+\contentsline {subsection}{\numberline {4.4}\texttt {LFSR.cpp}}{26}
+\contentsline {subsection}{\numberline {4.5}\texttt {test.cpp}}{28}
+\contentsline {section}{\numberline {5}PS3: N-Body Simulation}{31}
+\contentsline {subsection}{\numberline {5.1}\texttt {Makefile}}{32}
+\contentsline {subsection}{\numberline {5.2}\texttt {main.cpp}}{32}
+\contentsline {subsection}{\numberline {5.3}\texttt {body.hpp}}{36}
+\contentsline {subsection}{\numberline {5.4}\texttt {body.cpp}}{38}
+\contentsline {section}{\numberline {6}PS5: Ring Buffer and Guitar Hero}{41}
+\contentsline {subsection}{\numberline {6.1}\texttt {Makefile}}{41}
+\contentsline {subsection}{\numberline {6.2}\texttt {GuitarHero.cpp}}{42}
+\contentsline {subsection}{\numberline {6.3}\texttt {GuitarString.hpp}}{44}
+\contentsline {subsection}{\numberline {6.4}\texttt {GuitarString.cpp}}{45}
+\contentsline {subsection}{\numberline {6.5}\texttt {RingBuffer.hpp}}{46}
+\contentsline {subsection}{\numberline {6.6}\texttt {RingBuffer.cpp}}{47}
+\contentsline {subsection}{\numberline {6.7}\texttt {test.cpp}}{49}
+\contentsline {section}{\numberline {7}Airport Concurrency Simulation}{53}
+\contentsline {subsection}{\numberline {7.1}\texttt {Makefile}}{53}
+\contentsline {subsection}{\numberline {7.2}\texttt {Airport.cpp}}{54}
+\contentsline {subsection}{\numberline {7.3}\texttt {AirportServer.hpp}}{55}
+\contentsline {subsection}{\numberline {7.4}\texttt {AirportServer.cpp}}{56}

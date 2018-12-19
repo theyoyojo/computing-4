@@ -1,27 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
 
-// global Frames Per Second
+// Global Frames Per Second
 int const FPS = 60 ;
 
 // Global constants for window size
 int const WINDOW_WIDTH = 800 ;
 int const WINDOW_HEIGHT = 800 ;
-
-// TODO:
-//char const * msg = "Press an arrow key to increase velocity in that direction by 10 pixels per second" ;
-
-/*
- * TODO:
- * - acceleration?
- * - instruction msg?
- *
- * DONE:
- * - use football
- * - make it controllable using the keyboard
- * - make it bounce off the walls
- *
- */
 
 class Ball {
   
@@ -117,7 +102,6 @@ void Ball::updatePosition() {
 
 int main() {
 
-
   sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "SFML works!") ;
 
   // Updates to display happen FPS times per second
@@ -164,12 +148,10 @@ int main() {
       }
     }
 
-    
     // check for collision and
     // update ball position based on current velocity
     printf("Vx = %f, Vy = %f\n", football.getXVelocity(), football.getYVelocity() ) ;
     football.updatePosition() ;
-    
 
     window.clear() ;
     window.draw(football.getSprite()) ;

@@ -24,7 +24,7 @@
 #include "RingBuffer.hpp"
 #include "GuitarString.hpp"
 
-#define STANDARD_A 432 // Hz
+#define STANDARD_A 440 // Hz
 #define SAMPLES_PER_SEC 44100
 
 const std::string pianoMap = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' " ;
@@ -56,6 +56,7 @@ int main() {
   [&]() {
     for(int i = 0; i < KEYBOARD_LENGTH; ++i) {
       freq = STANDARD_A * pow(2,(i - 24)/12.0) ;
+      std::cout << freq << std::endl ;
       sampleVector[i] = makeSamplesFromString(GuitarString(freq)) ;
       if (!soundBufferVector[i].loadFromSamples(&sampleVector[i][0], sampleVector[i].size(), 2, SAMPLES_PER_SEC)) {
         throw std::runtime_error("sf::SoundBuffer: failed to load from samples.") ;
